@@ -46,4 +46,9 @@ There is no test suite or linter configured.
 - Setting the exe as the default `.xml` handler is a manual, per-machine
   Windows Explorer step (right-click → Open with → Choose another app →
   browse to the exe → "Always use this app") — nothing in this repo automates
-  Windows file-association registry entries.
+  Windows file-association registry entries. The exe is installed by copying it
+  to `%LOCALAPPDATA%\Programs\CFDIViewer\` and associating that copy, not
+  `dist\`: Windows stores the absolute exe path
+  (`HKCU\Software\Classes\Applications\CFDIViewer.exe\shell\open\command`), so
+  if the exe moves (e.g. the repo is relocated), double-clicking a `.xml`
+  silently does nothing.

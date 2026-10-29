@@ -43,9 +43,19 @@ dist\CFDIViewer.exe ruta\al\cfdi.xml
 
 ## Asociarlo como app predeterminada para `.xml`
 
-1. Clic derecho en cualquier `.xml` → **Abrir con** → **Elegir otra aplicación**.
-2. Buscar y seleccionar `dist\CFDIViewer.exe`.
-3. Marcar **"Usar siempre esta aplicación para abrir archivos .xml"**.
+1. Copiar `dist\CFDIViewer.exe` a una ubicación fija fuera del repo:
+   ```powershell
+   New-Item -ItemType Directory -Force "$env:LOCALAPPDATA\Programs\CFDIViewer"
+   Copy-Item dist\CFDIViewer.exe "$env:LOCALAPPDATA\Programs\CFDIViewer\" -Force
+   ```
+2. Clic derecho en cualquier `.xml` → **Abrir con** → **Elegir otra aplicación**.
+3. Buscar y seleccionar `%LOCALAPPDATA%\Programs\CFDIViewer\CFDIViewer.exe`.
+4. Marcar **"Usar siempre esta aplicación para abrir archivos .xml"**.
+
+Windows guarda la ruta exacta del exe: si se mueve o se borra, el doble clic deja
+de hacer nada y hay que repetir estos pasos. Por eso no conviene asociar
+`dist\CFDIViewer.exe` directamente (se borra al recompilar o al mover el repo).
+Para actualizar después de recompilar, basta con repetir el paso 1.
 
 Desde ahí, doble clic en cualquier CFDI `.xml` lo abrirá formateado en el
 navegador.
